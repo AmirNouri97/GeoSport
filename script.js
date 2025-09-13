@@ -18,7 +18,21 @@ if(navigator.geolocation){
         const {latitude} = position.coords
         const {longitude} = position.coords
         console.log(`https://www.google.com/maps/@${latitude},${longitude}`);
-        
+
+        //یک سری متد داره
+        //L is a nameSpace for sth
+        const coords = [latitude,longitude]
+        //because setView is get an array we store in an aaray and then passed it
+        const map = L.map('map').setView(coords, 15 );
+
+// L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+L.marker(coords).addTo(map)
+    .bindPopup('A pretty CSS popup.<br> Easily customizable.')
+    .openPopup();
     },function(){
         alert("can't get location")
     })
